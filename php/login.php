@@ -16,19 +16,19 @@ function loginUser($email, $password){
 $handle = fopen('../storage/users.csv', 'r');
 
 
-while (($data = fgetcsv($handle)) !== FALSE) {
-    if (data[1] === $email && $data[2] === $password) {
+while (($data = fgetcsv($handle)) !== FALSE){
+    if($data[1] === $email && $data[2] === $password) {
         session_start();
         $_SESSION['username'] = $data['0'];
         header('location../dashboard.php');
         break;
-        echo '<p class="success">congratulations, you are logged in!</p>';
-    } else {
-        echo '<p class="error">username password combination is wrong!</p>';
-
-        header('location: ../forms/login.html');
-        fclose($handle);
     }
   }
-} 
-?>
+  // echo "not found";
+  header('location: ../forms/login.html');
+  fclose($handle);
+
+
+}
+
+// echo "HANDLE THIS PAGE";
