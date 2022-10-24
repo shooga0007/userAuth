@@ -5,17 +5,20 @@ Check if the existing user has a session
 if it does
 destroy the session and redirect to login page
 */
-}
-//initialize the session
+ //initialize the session
 session_start();
-
+if($_SESSION['username']){
 //unset all of the session variables
-$_SESSION = array();
-
 //destroy the session
 session_destroy();
 
 //redirect to login page
-header("location:login.php");
-exit;
-?>
+header('location:../forms/login.html');
+} else {
+    echo "you are not logged in!";
+}
+}
+logut()
+
+// ech "HANDLE THIS PAGE";
+
