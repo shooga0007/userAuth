@@ -7,40 +7,31 @@ if(isset($_POST['submit'])){
 }
 
 function resetPassword($email, $password){
-$handle = fopen('../storage/users.csv','ra+');
+$file = fopen('../storage/users.csv','r');
 
-while(($data = fgetcsv($handle)) !==false){
-    if($data[1] === $email){
-        $data[2] === $password;
-        // print_r($data);
-        // fputcsv($handle, $new_data);
-
-        // $data1 = fgetcsv($handle1);
-
-        $csv = array_map('str_getcsv',file('../storage/users.csv'));
-        foreach ($csv as $line) {
-        implode(',',$line);
-        // print_r($line);
-        // array_push(new_data, $line);
-        $new_data = [$data[0], $data[1], $password];
-        $new_data[]= $line;
-        //$handle1 = fopen('../storage/users.csv', 'w');
-        // fputcsv($handle1,$new_data);
-        // fclose($handle1);
-      } 
+while(!feof($file)){
+    $line = fgetcsv($file);
+    if($line[1] === $email){
+        $line[2] === $password;
+        fclose($file);
+        $file = fopen('../storage/users.csv', 'w');
+        fputcsv($file);
+        echo "<h3 style="color: blue'>
+        password succesflly modified
+        <br>
+        <a href='../forms/login.html'>login here</a>
+        </h3>";
+        exit();
+        }
      
-     } exit;
-     //print_r($new_data);
-     //print_r($csv);
-
-    
+     } exit
   
-     } 
- } 
-echo "user does not exist";
-fclose($handle);
+   } 
+  
+echo "<h3 style='color:red'>user does not exist";</h3>";
+fclose($file);
 
-?>
+}
 
 
 
